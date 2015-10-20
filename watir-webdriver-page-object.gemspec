@@ -10,10 +10,10 @@ Gem::Specification.new do |spec|
   spec.email         = ['aaron.humerickhouse@sportngin.com']
 
   spec.summary       = 'Adds basic page object functionality to watir-webdriver'
-  spec.homepage      = 'http://github.com/TIMBERings/watir_webdriver_page_object'
+  spec.homepage      = 'http://github.com/TIMBERings/watir-webdriver-page-object'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = ['lib/watir-webdriver-page-object.rb']
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']

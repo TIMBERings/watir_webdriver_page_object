@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'watir_webdriver_page_object/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'watir_webdriver_page_object'
+  spec.name          = 'watir-webdriver-page-object'
   spec.version       = WatirWebdriverPageObject::VERSION
   spec.authors       = ['Aaron Humerickhouse']
   spec.email         = ['aaron.humerickhouse@sportngin.com']

@@ -1,4 +1,3 @@
-require "watir_webdriver_page_object/version"
 require 'watir-webdriver'
 
 module WatirWebdriverPageObject

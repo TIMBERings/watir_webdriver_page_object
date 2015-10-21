@@ -1,6 +1,6 @@
 require 'watir-webdriver'
 
-module WatirWebdriverPageObject
+class WatirWebdriverPageObject
   # Initializes a page, verifies title, url, and expected element exist prior to continuing.
   def initialize(browser)
     @browser = browser
@@ -16,7 +16,7 @@ module WatirWebdriverPageObject
 
   # Creates the at? method.  The dynamic method checks if the page url matches the page object url.
   # @param url [String, Regexp] The expected URL of the page
-  def page_url(url)
+  def self.page_url(url)
     define_method 'at?' do
       @browser.wait_until(nil, "Expected URL = #{url}, actual URL = #{@browser.url}") { url.kind_of?(Regexp) ? url =~ @browser.url : url == @browser.url }
     end
@@ -29,7 +29,7 @@ module WatirWebdriverPageObject
   # @param timeout [Integer] The length of time to wait before timeout.
   # @example
   #   expected_element('link', {css: 'a.button.save', index: 0}, 15)
-  def expected_element(type, identifier, timeout=Watir.default_timeout)
+  def self.expected_element(type, identifier, timeout=Watir.default_timeout)
     define_method 'expected_element' do
       @browser.send("#{type.to_s}", identifier).wait_until_present timeout
     end
@@ -38,7 +38,7 @@ module WatirWebdriverPageObject
   # Creates the has_expected_title? method to each page object.  Verifies the title matches the given title from the
   # page object.  If it doesn't, raise an exception.
   # @param title [String] The head title of page
-  def title(title)
+  def self.title(title)
     define_method 'has_expected_title?' do
       @browser.wait_until(nil, "Expected title = '#{title}', actual title = '#{@browser.title}'") { title.kind_of?(Regexp) ? title =~ @browser.title : title == @browser.title }
     end
@@ -51,7 +51,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the element
   # @param element_name [String] The desired name for the new element.
   # @param selector [Hash] The selector for the new element.
-  def element(element_name, selector)
+  def self.element(element_name, selector)
     define_method element_name.to_s do
       @browser.element(selector)
     end
@@ -61,7 +61,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the area
   # @param element_name [String] The desired name for the new area.
   # @param selector [Hash] The selector for the new area.
-  def area(element_name, selector)
+  def self.area(element_name, selector)
     define_method element_name.to_s do
       @browser.area(selector)
     end
@@ -71,7 +71,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the button
   # @param element_name [String] The desired name for the new button.
   # @param selector [Hash] The selector for the new button.
-  def button(element_name, selector)
+  def self.button(element_name, selector)
     define_method element_name.to_s do
       @browser.button(selector)
     end
@@ -81,7 +81,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the checkbox
   # @param element_name [String] The desired name for the new checkbox.
   # @param selector [Hash] The selector for the new checkbox.
-  def checkbox(element_name, selector)
+  def self.checkbox(element_name, selector)
     define_method element_name.to_s do
       @browser.checkbox(selector)
     end
@@ -91,7 +91,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the dlist
   # @param element_name [String] The desired name for the new dlist.
   # @param selector [Hash] The selector for the new dlist.
-  def dlist(element_name, selector)
+  def self.dlist(element_name, selector)
     define_method element_name.to_s do
       @browser.dlist(selector)
     end
@@ -101,7 +101,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the file_field
   # @param element_name [String] The desired name for the new file_field.
   # @param selector [Hash] The selector for the new file_field.
-  def file_field(element_name, selector)
+  def self.file_field(element_name, selector)
     define_method element_name.to_s do
       @browser.file_field(selector)
     end
@@ -111,7 +111,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the font
   # @param element_name [String] The desired name for the new font.
   # @param selector [Hash] The selector for the new font.
-  def font(element_name, selector)
+  def self.font(element_name, selector)
     define_method element_name.to_s do
       @browser.font(selector)
     end
@@ -121,7 +121,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the form
   # @param element_name [String] The desired name for the new form.
   # @param selector [Hash] The selector for the new form.
-  def form(element_name, selector)
+  def self.form(element_name, selector)
     define_method element_name.to_s do
       @browser.form(selector)
     end
@@ -131,7 +131,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the hidden
   # @param element_name [String] The desired name for the new hidden.
   # @param selector [Hash] The selector for the new hidden.
-  def hidden(element_name, selector)
+  def self.hidden(element_name, selector)
     define_method element_name.to_s do
       @browser.hidden(selector)
     end
@@ -141,7 +141,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the iframe
   # @param element_name [String] The desired name for the new iframe.
   # @param selector [Hash] The selector for the new iframe.
-  def iframe(element_name, selector)
+  def self.iframe(element_name, selector)
     define_method element_name.to_s do
       @browser.iframe(selector)
     end
@@ -151,7 +151,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the image
   # @param element_name [String] The desired name for the new image.
   # @param selector [Hash] The selector for the new image.
-  def image(element_name, selector)
+  def self.image(element_name, selector)
     define_method element_name.to_s do
       @browser.image(selector)
     end
@@ -161,7 +161,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the input
   # @param element_name [String] The desired name for the new input.
   # @param selector [Hash] The selector for the new input.
-  def input(element_name, selector)
+  def self.input(element_name, selector)
     define_method element_name.to_s do
       @browser.input(selector)
     end
@@ -171,7 +171,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the link
   # @param element_name [String] The desired name for the new link.
   # @param selector [Hash] The selector for the new link.
-  def link(element_name, selector)
+  def self.link(element_name, selector)
     define_method element_name.to_s do
       @browser.link(selector)
     end
@@ -181,7 +181,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the option
   # @param element_name [String] The desired name for the new option.
   # @param selector [Hash] The selector for the new option.
-  def option(element_name, selector)
+  def self.option(element_name, selector)
     define_method element_name.to_s do
       @browser.option(selector)
     end
@@ -191,7 +191,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the radio
   # @param element_name [String] The desired name for the new radio.
   # @param selector [Hash] The selector for the new radio.
-  def radio(element_name, selector)
+  def self.radio(element_name, selector)
     define_method element_name.to_s do
       @browser.radio(selector)
     end
@@ -201,7 +201,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the select
   # @param element_name [String] The desired name for the new select.
   # @param selector [Hash] The selector for the new select.
-  def select(element_name, selector)
+  def self.select(element_name, selector)
     define_method element_name.to_s do
       @browser.select(selector)
     end
@@ -211,7 +211,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the table
   # @param element_name [String] The desired name for the new table.
   # @param selector [Hash] The selector for the new table.
-  def table(element_name, selector)
+  def self.table(element_name, selector)
     define_method element_name.to_s do
       @browser.table(selector)
     end
@@ -221,7 +221,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the table_cell
   # @param element_name [String] The desired name for the new table_cell.
   # @param selector [Hash] The selector for the new table_cell.
-  def table_cell(element_name, selector)
+  def self.table_cell(element_name, selector)
     define_method element_name.to_s do
       @browser.table_cell(selector)
     end
@@ -230,7 +230,7 @@ module WatirWebdriverPageObject
   # For each td() defined in the page object these methods are added:
   # * <name> - Returns the td
   # @param element_name [String] The desired name for the new td.
-  def td(element_name, selector)
+  def self.td(element_name, selector)
     define_method element_name.to_s do
       @browser.td(selector)
     end
@@ -240,7 +240,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the table_row
   # @param element_name [String] The desired name for the new table_row.
   # @param selector [Hash] The selector for the new table_row.
-  def tr(element_name, selector)
+  def self.tr(element_name, selector)
     define_method element_name.to_s do
       @browser.tr(selector)
     end
@@ -251,7 +251,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the table_section
   # @param element_name [String] The desired name for the new table_section.
   # @param selector [Hash] The selector for the new table_section.
-  def table_section(element_name, selector)
+  def self.table_section(element_name, selector)
     define_method element_name.to_s do
       @browser.table_section(selector)
     end
@@ -261,7 +261,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the text_area
   # @param element_name [String] The desired name for the new text_area.
   # @param selector [Hash] The selector for the new text_area.
-  def text_area(element_name, selector)
+  def self.text_area(element_name, selector)
     define_method element_name.to_s do
       @browser.textarea(selector)
     end
@@ -271,7 +271,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the text_field
   # @param element_name [String] The desired name for the new text_field.
   # @param selector [Hash] The selector for the new text_field.
-  def text_field(element_name, selector)
+  def self.text_field(element_name, selector)
     define_method element_name.to_s do
       @browser.text_field(selector)
     end
@@ -282,7 +282,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching elements
   # @param element_name [String] The desired name for the new element.
   # @param selector [Hash] The selector for the new element.
-  def elements(element_name, selector)
+  def self.elements(element_name, selector)
     define_method element_name.to_s do
       @browser.elements(selector)
     end
@@ -292,7 +292,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching areas
   # @param element_name [String] The desired name for the new area.
   # @param selector [Hash] The selector for the new area.
-  def areas(element_name, selector)
+  def self.areas(element_name, selector)
     define_method element_name.to_s do
       @browser.areas(selector)
     end
@@ -302,7 +302,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching buttons
   # @param element_name [String] The desired name for the new button.
   # @param selector [Hash] The selector for the new button.
-  def buttons(element_name, selector)
+  def self.buttons(element_name, selector)
     define_method element_name.to_s do
       @browser.buttons(selector)
     end
@@ -312,7 +312,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching checkboxes
   # @param element_name [String] The desired name for the new checkbox.
   # @param selector [Hash] The selector for the new checkbox.
-  def checkboxes(element_name, selector)
+  def self.checkboxes(element_name, selector)
     define_method element_name.to_s do
       @browser.checkboxes(selector)
     end
@@ -322,7 +322,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching dlists
   # @param element_name [String] The desired name for the new dlist.
   # @param selector [Hash] The selector for the new dlist.
-  def dlists(element_name, selector)
+  def self.dlists(element_name, selector)
     define_method element_name.to_s do
       @browser.dlists(selector)
     end
@@ -332,7 +332,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching file_fields
   # @param element_name [String] The desired name for the new file_field.
   # @param selector [Hash] The selector for the new file_field.
-  def file_fields(element_name, selector)
+  def self.file_fields(element_name, selector)
     define_method element_name.to_s do
       @browser.file_fields(selector)
     end
@@ -342,7 +342,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching fonts
   # @param element_name [String] The desired name for the new font.
   # @param selector [Hash] The selector for the new font.
-  def fonts(element_name, selector)
+  def self.fonts(element_name, selector)
     define_method element_name.to_s do
       @browser.fonts(selector)
     end
@@ -352,7 +352,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching forms
   # @param element_name [String] The desired name for the new form.
   # @param selector [Hash] The selector for the new form.
-  def forms(element_name, selector)
+  def self.forms(element_name, selector)
     define_method element_name.to_s do
       @browser.forms(selector)
     end
@@ -362,7 +362,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching hiddens
   # @param element_name [String] The desired name for the new hidden.
   # @param selector [Hash] The selector for the new hidden.
-  def hiddens(element_name, selector)
+  def self.hiddens(element_name, selector)
     define_method element_name.to_s do
       @browser.hiddens(selector)
     end
@@ -372,7 +372,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching iframes
   # @param element_name [String] The desired name for the new iframe.
   # @param selector [Hash] The selector for the new iframe.
-  def iframes(element_name, selector)
+  def self.iframes(element_name, selector)
     define_method element_name.to_s do
       @browser.iframes(selector)
     end
@@ -382,7 +382,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching images
   # @param element_name [String] The desired name for the new image.
   # @param selector [Hash] The selector for the new image.
-  def images(element_name, selector)
+  def self.images(element_name, selector)
     define_method element_name.to_s do
       @browser.images(selector)
     end
@@ -392,7 +392,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching inputs
   # @param element_name [String] The desired name for the new input.
   # @param selector [Hash] The selector for the new input.
-  def inputs(element_name, selector)
+  def self.inputs(element_name, selector)
     define_method element_name.to_s do
       @browser.inputs(selector)
     end
@@ -402,7 +402,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching links
   # @param element_name [String] The desired name for the new link.
   # @param selector [Hash] The selector for the new link.
-  def links(element_name, selector)
+  def self.links(element_name, selector)
     define_method element_name.to_s do
       @browser.links(selector)
     end
@@ -412,7 +412,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching options
   # @param element_name [String] The desired name for the new option.
   # @param selector [Hash] The selector for the new option.
-  def options(element_name, selector)
+  def self.options(element_name, selector)
     define_method element_name.to_s do
       @browser.options(selector)
     end
@@ -422,7 +422,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching radios
   # @param element_name [String] The desired name for the new radio.
   # @param selector [Hash] The selector for the new radio.
-  def radios(element_name, selector)
+  def self.radios(element_name, selector)
     define_method element_name.to_s do
       @browser.radios(selector)
     end
@@ -432,7 +432,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching selects
   # @param element_name [String] The desired name for the new select.
   # @param selector [Hash] The selector for the new select.
-  def selects(element_name, selector)
+  def self.selects(element_name, selector)
     define_method element_name.to_s do
       @browser.selects(selector)
     end
@@ -442,7 +442,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching tables
   # @param element_name [String] The desired name for the new table.
   # @param selector [Hash] The selector for the new table.
-  def tables(element_name, selector)
+  def self.tables(element_name, selector)
     define_method element_name.to_s do
       @browser.tables(selector)
     end
@@ -452,7 +452,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching table_cells
   # @param element_name [String] The desired name for the new table_cell.
   # @param selector [Hash] The selector for the new table_cell.
-  def table_cells(element_name, selector)
+  def self.table_cells(element_name, selector)
     define_method element_name.to_s do
       @browser.table_cells(selector)
     end
@@ -462,7 +462,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching tds
   # @param element_name [String] The desired name for the new td.
   # @param selector [Hash] The selector for the new td.
-  def tds(element_name, selector)
+  def self.tds(element_name, selector)
     define_method element_name.to_s do
       @browser.tds(selector)
     end
@@ -472,7 +472,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching table_rows
   # @param element_name [String] The desired name for the new table_row.
   # @param selector [Hash] The selector for the new table_row.
-  def trs(element_name, selector)
+  def self.trs(element_name, selector)
     define_method element_name.to_s do
       @browser.trs(selector)
     end
@@ -482,7 +482,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching table_sections
   # @param element_name [String] The desired name for the new table_section.
   # @param selector [Hash] The selector for the new table_section.
-  def table_sections(element_name, selector)
+  def self.table_sections(element_name, selector)
     define_method element_name.to_s do
       @browser.table_sections(selector)
     end
@@ -492,7 +492,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching text_areas
   # @param element_name [String] The desired name for the new text_area.
   # @param selector [Hash] The selector for the new text_area.
-  def text_areas(element_name, selector)
+  def self.text_areas(element_name, selector)
     define_method element_name.to_s do
       @browser.text_areas(selector)
     end
@@ -502,7 +502,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching text_fields
   # @param element_name [String] The desired name for the new text_field.
   # @param selector [Hash] The selector for the new text_field.
-  def text_fields(element_name, selector)
+  def self.text_fields(element_name, selector)
     define_method element_name.to_s do
       @browser.text_fields(selector)
     end
@@ -512,7 +512,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching h1
   # @param element_name [String] The desired name for the new h1.
   # @param selector [Hash] The selector for the new h1.
-  def h1(element_name, selector)
+  def self.h1(element_name, selector)
     define_method element_name.to_s do
       @browser.h1(selector)
     end
@@ -522,7 +522,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching h1s
   # @param element_name [String] The desired name for the new h1s.
   # @param selector [Hash] The selector for the new h1s.
-  def h1s(element_name, selector)
+  def self.h1s(element_name, selector)
     define_method element_name.to_s do
       @browser.h1s(selector)
     end
@@ -532,7 +532,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching h2
   # @param element_name [String] The desired name for the new h2.
   # @param selector [Hash] The selector for the new h2.
-  def h2(element_name, selector)
+  def self.h2(element_name, selector)
     define_method element_name.to_s do
       @browser.h2(selector)
     end
@@ -542,7 +542,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching h2s
   # @param element_name [String] The desired name for the new h2s.
   # @param selector [Hash] The selector for the new h2s.
-  def h2s(element_name, selector)
+  def self.h2s(element_name, selector)
     define_method element_name.to_s do
       @browser.h2s(selector)
     end
@@ -552,7 +552,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching h3
   # @param element_name [String] The desired name for the new h3.
   # @param selector [Hash] The selector for the new h3.
-  def h3(element_name, selector)
+  def self.h3(element_name, selector)
     define_method element_name.to_s do
       @browser.h3(selector)
     end
@@ -562,7 +562,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching h3s
   # @param element_name [String] The desired name for the new h3s.
   # @param selector [Hash] The selector for the new h3s.
-  def h3s(element_name, selector)
+  def self.h3s(element_name, selector)
     define_method element_name.to_s do
       @browser.h3s(selector)
     end
@@ -572,7 +572,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching h4
   # @param element_name [String] The desired name for the new h4.
   # @param selector [Hash] The selector for the new h4.
-  def h4(element_name, selector)
+  def self.h4(element_name, selector)
     define_method element_name.to_s do
       @browser.h4(selector)
     end
@@ -582,7 +582,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching h4s
   # @param element_name [String] The desired name for the new h4s.
   # @param selector [Hash] The selector for the new h4s.
-  def h4s(element_name, selector)
+  def self.h4s(element_name, selector)
     define_method element_name.to_s do
       @browser.h4s(selector)
     end
@@ -592,7 +592,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching h5
   # @param element_name [String] The desired name for the new h5.
   # @param selector [Hash] The selector for the new h5.
-  def h5(element_name, selector)
+  def self.h5(element_name, selector)
     define_method element_name.to_s do
       @browser.h5(selector)
     end
@@ -602,7 +602,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching h5s
   # @param element_name [String] The desired name for the new h5s.
   # @param selector [Hash] The selector for the new h5s.
-  def h5s(element_name, selector)
+  def self.h5s(element_name, selector)
     define_method element_name.to_s do
       @browser.h5s(selector)
     end
@@ -612,7 +612,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching h7
   # @param element_name [String] The desired name for the new h7.
   # @param selector [Hash] The selector for the new h7.
-  def h7(element_name, selector)
+  def self.h7(element_name, selector)
     define_method element_name.to_s do
       @browser.h7(selector)
     end
@@ -622,7 +622,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching h7s
   # @param element_name [String] The desired name for the new h7s.
   # @param selector [Hash] The selector for the new h7s.
-  def h7s(element_name, selector)
+  def self.h7s(element_name, selector)
     define_method element_name.to_s do
       @browser.h7s(selector)
     end
@@ -632,7 +632,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching div
   # @param element_name [String] The desired name for the new div.
   # @param selector [Hash] The selector for the new div.
-  def div(element_name, selector)
+  def self.div(element_name, selector)
     define_method element_name.to_s do
       @browser.div(selector)
     end
@@ -642,7 +642,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching divs
   # @param element_name [String] The desired name for the new divs.
   # @param selector [Hash] The selector for the new divs.
-  def divs(element_name, selector)
+  def self.divs(element_name, selector)
     define_method element_name.to_s do
       @browser.divs(selector)
     end
@@ -652,7 +652,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching ul
   # @param element_name [String] The desired name for the new ul.
   # @param selector [Hash] The selector for the new ul.
-  def ul(element_name, selector)
+  def self.ul(element_name, selector)
     define_method element_name.to_s do
       @browser.ul(selector)
     end
@@ -662,7 +662,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching uls
   # @param element_name [String] The desired name for the new uls.
   # @param selector [Hash] The selector for the new uls.
-  def uls(element_name, selector)
+  def self.uls(element_name, selector)
     define_method element_name.to_s do
       @browser.uls(selector)
     end
@@ -672,7 +672,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching li
   # @param element_name [String] The desired name for the new li.
   # @param selector [Hash] The selector for the new li.
-  def li(element_name, selector)
+  def self.li(element_name, selector)
     define_method element_name.to_s do
       @browser.li(selector)
     end
@@ -682,7 +682,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching lis
   # @param element_name [String] The desired name for the new lis.
   # @param selector [Hash] The selector for the new lis.
-  def lis(element_name, selector)
+  def self.lis(element_name, selector)
     define_method element_name.to_s do
       @browser.lis(selector)
     end
@@ -692,7 +692,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching dropdown
   # @param element_name [String] The desired name for the new dropdown.
   # @param selector [Hash] The selector for the new dropdown.
-  def dropdown(element_name, selector)
+  def self.dropdown(element_name, selector)
     define_method element_name.to_s do
       @browser.select(selector)
     end
@@ -702,7 +702,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching dropdowns
   # @param element_name [String] The desired name for the new dropdowns.
   # @param selector [Hash] The selector for the new dropdowns.
-  def dropdowns(element_name, selector)
+  def self.dropdowns(element_name, selector)
     define_method element_name.to_s do
       @browser.selects(selector)
     end
@@ -712,7 +712,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns the first matching span
   # @param element_name [String] The desired name for the new span.
   # @param selector [Hash] The selector for the new span.
-  def span(element_name, selector)
+  def self.span(element_name, selector)
     define_method element_name.to_s do
       @browser.span(selector)
     end
@@ -722,7 +722,7 @@ module WatirWebdriverPageObject
   # * <name> - Returns an array of matching spans
   # @param element_name [String] The desired name for the new spans.
   # @param selector [Hash] The selector for the new spans.
-  def spans(element_name, selector)
+  def self.spans(element_name, selector)
     define_method element_name.to_s do
       @browser.spans(selector)
     end

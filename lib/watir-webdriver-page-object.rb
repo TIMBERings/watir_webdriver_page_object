@@ -257,11 +257,11 @@ class WatirWebdriverPageObject
     end
   end
 
-  # For each text_area() defined in the page object these methods are added:
-  # * <name> - Returns the text_area
-  # @param element_name [String] The desired name for the new text_area.
-  # @param selector [Hash] The selector for the new text_area.
-  def self.text_area(element_name, selector)
+  # For each textarea() defined in the page object these methods are added:
+  # * <name> - Returns the textarea
+  # @param element_name [String] The desired name for the new textarea.
+  # @param selector [Hash] The selector for the new textarea.
+  def self.textarea(element_name, selector)
     define_method element_name.to_s do
       @browser.textarea(selector)
     end
@@ -488,13 +488,13 @@ class WatirWebdriverPageObject
     end
   end
 
-  # For each text_areas() defined in the page object these methods are added:
-  # * <name> - Returns an array of matching text_areas
-  # @param element_name [String] The desired name for the new text_area.
-  # @param selector [Hash] The selector for the new text_area.
-  def self.text_areas(element_name, selector)
+  # For each textareas() defined in the page object these methods are added:
+  # * <name> - Returns an array of matching textareas
+  # @param element_name [String] The desired name for the new textarea.
+  # @param selector [Hash] The selector for the new textarea.
+  def self.textareas(element_name, selector)
     define_method element_name.to_s do
-      @browser.text_areas(selector)
+      @browser.textareas(selector)
     end
   end
 
